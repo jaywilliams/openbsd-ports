@@ -1,4 +1,4 @@
-$OpenBSD: patch-config_def_h,v 1.11 2019/02/10 21:55:24 feinerer Exp $
+$OpenBSD: patch-config_def_h,v 1.13 2020/06/29 14:36:10 mestre Exp $
 Index: config.def.h
 --- config.def.h.orig
 +++ config.def.h
@@ -7,11 +7,11 @@ Index: config.def.h
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-+static char *font = "Inconsolata:pixelsize=16:antialias=true:autohint=true";
++static char *font = "Mononoki:pixelsize=13:antialias=true:autohint=true";
  static int borderpx = 2;
  
  /*
-@@ -84,26 +84,24 @@ unsigned int tabspaces = 8;
+@@ -95,31 +95,44 @@ unsigned int tabspaces = 8;
  
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
@@ -41,6 +41,7 @@ Index: config.def.h
 +	"#6c71c4",  /* 13: brmagenta*/
 +	"#93a1a1",  /* 14: brcyan   */
 +	"#fdf6e3",  /* 15: brwhite  */
++};
  
 -	/* 8 bright colors */
 -	"gray50",
@@ -52,10 +53,34 @@ Index: config.def.h
 -	"cyan",
 -	"white",
 -
- 	[255] = 0,
+-	[255] = 0,
+-
+-	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++/* Terminal colors for alternate (light) palette */
++static const char *altcolorname[] = {
++	/* solarized dark */
++	"#eee8d5",  /*  0: black    */
++	"#dc322f",  /*  1: red      */
++	"#859900",  /*  2: green    */
++	"#b58900",  /*  3: yellow   */
++	"#268bd2",  /*  4: blue     */
++	"#d33682",  /*  5: magenta  */
++	"#2aa198",  /*  6: cyan     */
++	"#073642",  /*  7: white    */
++	"#fdf6e3",  /*  8: brblack  */
++	"#cb4b16",  /*  9: brred    */
++	"#93a1a1",  /* 10: brgreen  */
++	"#839496",  /* 11: bryellow */
++	"#657b83",  /* 12: brblue   */
++	"#6c71c4",  /* 13: brmagenta*/
++	"#586e75",  /* 14: brcyan   */
++	"#002b36",  /* 15: brwhite  */
+ };
  
- 	/* more colors can be added after 255 to use with DefaultXX */
-@@ -116,10 +114,10 @@ static const char *colorname[] = {
+ 
+@@ -127,10 +140,10 @@ static const char *colorname[] = {
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
@@ -70,3 +95,11 @@ Index: config.def.h
  
  /*
   * Default shape of cursor
+@@ -199,6 +212,7 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++    { XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
+ };
+ 
+ /*
