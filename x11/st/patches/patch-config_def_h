@@ -1,4 +1,3 @@
-$OpenBSD: patch-config_def_h,v 1.13 2020/06/29 14:36:10 mestre Exp $
 Index: config.def.h
 --- config.def.h.orig
 +++ config.def.h
@@ -11,7 +10,7 @@ Index: config.def.h
  static int borderpx = 2;
  
  /*
-@@ -95,31 +95,44 @@ unsigned int tabspaces = 8;
+@@ -95,44 +95,53 @@ unsigned int tabspaces = 8;
  
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
@@ -58,7 +57,8 @@ Index: config.def.h
 -	/* more colors can be added after 255 to use with DefaultXX */
 -	"#cccccc",
 -	"#555555",
-+/* Terminal colors for alternate (light) palette */
+-	"gray90", /* default foreground colour */
+-	"black", /* default background colour */
 +static const char *altcolorname[] = {
 +	/* solarized dark */
 +	"#eee8d5",  /*  0: black    */
@@ -79,27 +79,27 @@ Index: config.def.h
 +	"#002b36",  /* 15: brwhite  */
  };
  
- 
-@@ -127,10 +140,10 @@ static const char *colorname[] = {
+-
+ /*
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
--unsigned int defaultfg = 7;
--unsigned int defaultbg = 0;
--static unsigned int defaultcs = 256;
+-unsigned int defaultfg = 258;
+-unsigned int defaultbg = 259;
+-unsigned int defaultcs = 256;
 -static unsigned int defaultrcs = 257;
 +unsigned int defaultfg = 11;
 +unsigned int defaultbg = 15;
-+static unsigned int defaultcs = 14;
++unsigned int defaultcs = 14;
 +static unsigned int defaultrcs = 15;
  
  /*
   * Default shape of cursor
-@@ -199,6 +212,7 @@ static Shortcut shortcuts[] = {
+@@ -201,6 +210,7 @@ static Shortcut shortcuts[] = {
  	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
  	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
  	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-+    { XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
++	{ XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
  };
  
  /*
