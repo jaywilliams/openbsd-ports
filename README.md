@@ -4,3 +4,5 @@
 
 * Solarized light color scheme
 * Disable bright bold colors
+* Toggle Light/Dark Mode (F6)
+* Use Mononoki font
