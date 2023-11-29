@@ -11,7 +11,7 @@ Index: x.c
  static void zoomreset(const Arg *);
 @@ -254,6 +255,8 @@ static char *opt_title = NULL;
  
- static int oldbutton = 3; /* button event on startup: 3 = release */
+ static uint buttons; /* bit field of pressed buttons */
  
 +int usealtcolors = 0; /* 1 to use alternate palette */
 +
@@ -33,7 +33,7 @@ Index: x.c
  zoom(const Arg *arg)
  {
  	Arg larg;
-@@ -750,6 +761,11 @@ sixd_to_16bit(int x)
+@@ -766,6 +777,11 @@ sixd_to_16bit(int x)
  	return x == 0 ? 0 : 0x3737 + 0x2828 * x;
  }
  
@@ -45,7 +45,7 @@ Index: x.c
  int
  xloadcolor(int i, const char *name, Color *ncolor)
  {
-@@ -768,7 +784,7 @@ xloadcolor(int i, const char *name, Color *ncolor)
+@@ -784,7 +800,7 @@ xloadcolor(int i, const char *name, Color *ncolor)
  			return XftColorAllocValue(xw.dpy, xw.vis,
  			                          xw.cmap, &color, ncolor);
  		} else
@@ -54,7 +54,7 @@ Index: x.c
  	}
  
  	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
-@@ -791,8 +807,8 @@ xloadcols(void)
+@@ -807,8 +823,8 @@ xloadcols(void)
  
  	for (i = 0; i < dc.collen; i++)
  		if (!xloadcolor(i, NULL, &dc.col[i])) {
@@ -65,7 +65,7 @@ Index: x.c
  			else
  				die("could not allocate color %d\n", i);
  		}
-@@ -1184,13 +1200,13 @@ xinit(int cols, int rows)
+@@ -1200,13 +1216,13 @@ xinit(int cols, int rows)
  	cursor = XCreateFontCursor(xw.dpy, mouseshape);
  	XDefineCursor(xw.dpy, xw.win, cursor);
  
@@ -81,7 +81,7 @@ Index: x.c
  		xmousebg.red   = 0x0000;
  		xmousebg.green = 0x0000;
  		xmousebg.blue  = 0x0000;
-@@ -1398,7 +1414,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Gly
+@@ -1414,7 +1430,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Gly
  
  	/* Change basic system colors [0-7] to bright system colors [8-15] */
  	if ((base.mode & ATTR_BOLD_FAINT) == ATTR_BOLD && BETWEEN(base.fg, 0, 7))

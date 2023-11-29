@@ -1,9 +1,7 @@
-$OpenBSD$
-
 Index: st.h
 --- st.h.orig
 +++ st.h
-@@ -120,6 +120,7 @@ extern wchar_t *worddelimiters;
+@@ -122,6 +122,7 @@ extern wchar_t *worddelimiters;
  extern int allowaltscreen;
  extern int allowwindowops;
  extern char *termname;
