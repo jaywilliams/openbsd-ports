@@ -1,4 +1,4 @@
-# Ports for OpenBSD 7.2
+# Ports for OpenBSD 7.4
 
 ## x11/st (patched)
 
